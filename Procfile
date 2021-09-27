@@ -1,0 +1,1 @@
+Bot: docker-compose up
