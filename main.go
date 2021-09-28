@@ -42,12 +42,6 @@ func getSession() *discordgo.Session {
 	return session
 }
 
-func onReady(session *discordgo.Session, event *discordgo.Ready) {
-	log.Println("Bot is Ready")
-	err := session.UpdateGameStatus(0, "Counter-Strike: Global Offensive")
-	handleErrorDebug(err, "Error hanling the ready event.")
-}
-
 func parsePrefix(message string) (string, string) {
 	messageSlice := strings.SplitN(message, " ", 2)
 	if len(messageSlice) < 2 {
