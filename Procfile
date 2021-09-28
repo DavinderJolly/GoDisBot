@@ -1,1 +1,1 @@
-Bot: docker-compose up
+Go: go run main.go
