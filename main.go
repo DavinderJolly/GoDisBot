@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const PREFIX string = "."
+const botCommandPrefix string = "."
 
 func handleErrorFatal(err error, errorMessage string) {
 	if err != nil {
@@ -50,7 +50,7 @@ func onReady(session *discordgo.Session, event *discordgo.Ready) {
 
 func parsePrefix(message string) (string, string) {
 	messageSlice := strings.SplitN(message, " ", 2)
-	return messageSlice[9], messageSlice[1]
+	return messageSlice[0], messageSlice[1]
 }
 
 func echo(session *discordgo.Session, channelID string, args string) {
@@ -59,9 +59,9 @@ func echo(session *discordgo.Session, channelID string, args string) {
 }
 
 func handleCommands(session *discordgo.Session, message *discordgo.Message) {
-	prefix, args := parsePrefix(message.Content)
-	switch prefix {
-	case PREFIX + "echo":
+	messagePrefix, args := parsePrefix(message.Content)
+	switch strings.ToLower(messagePrefix) {
+	case botCommandPrefix + "echo":
 		echo(session, message.ChannelID, args)
 	}
 }
@@ -70,7 +70,7 @@ func onMessageCreate(session *discordgo.Session, message *discordgo.MessageCreat
 	if message.Author.ID == session.State.User.ID {
 		return
 	}
-	if strings.HasPrefix(message.Content, PREFIX) {
+	if strings.HasPrefix(message.Content, botCommandPrefix) {
 		handleCommands(session, message.Message)
 	}
 }
@@ -81,10 +81,14 @@ func main() {
 	err := session.Open()
 	handleErrorFatal(err, "Error opening a connection to discord")
 
+	session.Identify.Intents = discordgo.IntentsGuildMessages |
+		discordgo.IntentsGuildMessageTyping |
+		discordgo.IntentsDirectMessages |
+		discordgo.IntentsDirectMessageTyping |
+		discordgo.IntentsGuildPresences
+
 	session.AddHandler(onReady)
 	session.AddHandler(onMessageCreate)
-
-	session.Identify.Intents = discordgo.IntentsGuildMessages
 
 	log.Println("Starting the bot... press Ctrl + C to stop")
 	con := make(chan os.Signal, 1)
