@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:1.17.1-alpine
 
 WORKDIR /GoDisBot
 
