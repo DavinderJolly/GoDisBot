@@ -1,1 +1,1 @@
-Go: go run main.go
+Go: bin/GoDisBot
