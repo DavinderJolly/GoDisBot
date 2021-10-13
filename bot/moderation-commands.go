@@ -8,6 +8,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// Kick command kicks a user with a reason
 func Kick(session *discordgo.Session, message *discordgo.Message) {
 	if HasPermission(session, message.Author.ID, message.ChannelID, discordgo.PermissionKickMembers) {
 		_, reason := ParsePrefix(message.ContentWithMentionsReplaced())
@@ -23,6 +24,7 @@ func Kick(session *discordgo.Session, message *discordgo.Message) {
 	}
 }
 
+// TempBan temporarily bans a user with a reason
 func TempBan(session *discordgo.Session, message *discordgo.Message) {
 	if HasPermission(session, message.Author.ID, message.ChannelID, discordgo.PermissionBanMembers) {
 		_, args := ParsePrefix(message.ContentWithMentionsReplaced())
@@ -42,6 +44,7 @@ func TempBan(session *discordgo.Session, message *discordgo.Message) {
 	}
 }
 
+// Unban removes the ban on a user
 func Unban(session *discordgo.Session, message *discordgo.Message) {
 	if HasPermission(session, message.Author.ID, message.ChannelID, discordgo.PermissionBanMembers) {
 		name := strings.ToLower(strings.SplitN(message.Content, " ", 3)[1])
@@ -61,6 +64,7 @@ func Unban(session *discordgo.Session, message *discordgo.Message) {
 	}
 }
 
+// Purge command removes said number of messages from the channel its used in
 func Purge(session *discordgo.Session, message *discordgo.Message) {
 	if HasPermission(session, message.Author.ID, message.ChannelID, discordgo.PermissionManageMessages) {
 		splitMessage := strings.SplitN(message.ContentWithMentionsReplaced(), " ", 3)

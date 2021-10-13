@@ -11,20 +11,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// BotCommandPrefix is prefix for the bot's commands.
+// BotCommandPrefix is prefix for the bot's.
 const BotCommandPrefix string = "."
-
-func HandleErrorFatal(err error, errorMessage string) {
-	if err != nil {
-		log.Fatalln(errorMessage)
-	}
-}
-
-func HandleErrorDebug(err error, errorMessage string) {
-	if err != nil {
-		log.Println(errorMessage)
-	}
-}
 
 func getToken() string {
 	token, tokenExist := os.LookupEnv("TOKEN")
@@ -62,6 +50,7 @@ func setIntentsAndHandlers(session *discordgo.Session) {
 	session.AddHandler(onMessageCreate)
 }
 
+// Run starts the bot
 func Run() {
 	session := getSession()
 

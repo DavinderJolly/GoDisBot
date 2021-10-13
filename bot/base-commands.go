@@ -9,6 +9,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// HandleCommands takes the message and calls proper function for the command
 func HandleCommands(session *discordgo.Session, message *discordgo.Message) {
 	messagePrefix, args := ParsePrefix(message.Content)
 	switch strings.ToLower(messagePrefix) {
@@ -29,11 +30,13 @@ func HandleCommands(session *discordgo.Session, message *discordgo.Message) {
 	}
 }
 
+// Echo command repeats what the user typed
 func Echo(session *discordgo.Session, channelID string, args string) {
 	sentMessage, err := session.ChannelMessageSend(channelID, args)
 	HandleErrorDebug(err, "Error sending message with content: '"+sentMessage.Content+"'")
 }
 
+// Ping command sends the 2 way latency for the bot
 func Ping(session *discordgo.Session, channelID string, timestamp discordgo.Timestamp) {
 	pingTime, err := timestamp.Parse()
 	HandleErrorDebug(err, "Could not parse timestamp")
