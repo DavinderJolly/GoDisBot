@@ -11,7 +11,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Commmand prefix for the bot.
+// BotCommandPrefix is prefix for the bot's commands.
 const BotCommandPrefix string = "."
 
 func HandleErrorFatal(err error, errorMessage string) {
