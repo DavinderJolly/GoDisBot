@@ -11,7 +11,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const BOT_COMMAND_PREFIX string = "."
+// Commmand prefix for the bot.
+const BotCommandPrefix string = "."
 
 func HandleErrorFatal(err error, errorMessage string) {
 	if err != nil {
@@ -46,7 +47,7 @@ func onMessageCreate(session *discordgo.Session, message *discordgo.MessageCreat
 	if message.Author.ID == session.State.User.ID {
 		return
 	}
-	if strings.HasPrefix(message.Content, BOT_COMMAND_PREFIX) {
+	if strings.HasPrefix(message.Content, BotCommandPrefix) {
 		HandleCommands(session, message.Message)
 	}
 }

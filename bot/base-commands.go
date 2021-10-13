@@ -12,17 +12,17 @@ import (
 func HandleCommands(session *discordgo.Session, message *discordgo.Message) {
 	messagePrefix, args := ParsePrefix(message.Content)
 	switch strings.ToLower(messagePrefix) {
-	case BOT_COMMAND_PREFIX + "echo":
+	case BotCommandPrefix + "echo":
 		Echo(session, message.ChannelID, args)
-	case BOT_COMMAND_PREFIX + "ping":
+	case BotCommandPrefix + "ping":
 		Ping(session, message.ChannelID, message.Timestamp)
-	case BOT_COMMAND_PREFIX + "kick":
+	case BotCommandPrefix + "kick":
 		Kick(session, message)
-	case BOT_COMMAND_PREFIX + "tempban":
+	case BotCommandPrefix + "tempban":
 		TempBan(session, message)
-	case BOT_COMMAND_PREFIX + "unban":
+	case BotCommandPrefix + "unban":
 		Unban(session, message)
-	case BOT_COMMAND_PREFIX + "purge":
+	case BotCommandPrefix + "purge":
 		Purge(session, message)
 	default:
 		log.Println("Command not found")
